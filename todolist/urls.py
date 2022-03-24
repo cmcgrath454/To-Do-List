@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include, re_path
 from todolistapp import views
@@ -20,7 +21,9 @@ from todolistapp import views
 urlpatterns = [
     path('', views.view_all_tasks, name=""),
     path('new_task', views.new_task, name="new_task"),
-    path('edit/<int:id>/', views.delete, name='edit_task'),
+    path('edit/<int:id>/', views.edit_task, name='edit_task'),
     path('delete/<int:id>/', views.delete, name='delete_task'),
+    path('markdone/<int:id>/', views.mark_done, name='mark_done'),
+    path('completed', views.view_completed_tasks, name='completed'),
     path('admin/', admin.site.urls),
 ]

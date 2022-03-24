@@ -5,9 +5,9 @@
 {% for task in tasks %}
 <li>
     {{ task }}
-    <a href="">Edit</a>
+    <a href="/edit/{{ task.id }}">Edit</a>
     <a href="/delete/{{ task.id }}" onclick="return confirm('Are you sure you want to delete this task?')">Delete</a>
-    <a href="">Mark Done</a>
+    <a href="/markdone/{{ task.id }}">Mark Done</a>
 </li>
 
 
