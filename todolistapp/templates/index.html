@@ -3,7 +3,12 @@
 {% block content %}
 
 {% for task in tasks %}
-<li><a href="{{ task.get_url }}">{{ task }}</a></li>
+<li>
+    {{ task }}
+    <a href="">Edit</a>
+    <a href="/delete/{{ task.id }}" onclick="return confirm('Are you sure you want to delete this task?')">Delete</a>
+    <a href="">Mark Done</a>
+</li>
 
 
 {% endfor %}
