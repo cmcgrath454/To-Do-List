@@ -18,7 +18,10 @@ from django.urls import path, include
 from todolistapp import views
 
 urlpatterns = [
-    path('', views.view_all_lists, name="index"),
+    path('', views.view_all_lists, name=""),
     path('list/<int:id>/', views.view_list, name="list"),
+    path('new_list', views.new_list, name="new_list"),
+    path('list/<int:id>/update/', views.update_list, name="update_list"),
+    path('list/<int:id>/update/delete/', views.delete_list, name="delete_list"),
     path('admin/', admin.site.urls),
 ]

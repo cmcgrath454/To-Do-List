@@ -7,6 +7,11 @@ class List(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_url(self):
+        return 'list/' + str(self.id)
+
+    
     
 class Task(models.Model):
     list = models.ForeignKey(List, null=True, on_delete=models.CASCADE)

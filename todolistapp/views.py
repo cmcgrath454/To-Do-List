@@ -1,15 +1,10 @@
-from re import L
-from socket import fromshare
-from typing import List
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import List, Task
-from django import forms
+from django.forms import ModelForm
+from django.shortcuts import get_object_or_404, redirect
 
 # Create your views here.
-
-def index(request):
-    return HttpResponse("Hello World")
 
 def view_all_lists(request):
     lists = List.objects.all()
@@ -20,15 +15,33 @@ def view_list(request, id):
     tasks = Task.objects.filter(list=list)
     return render(request, 'list.html', {'list':list, 'tasks':tasks})
 
-class list_form(forms.form):
-    name = forms.CharField(label="name", max_length=25)
-
 def new_list(request):
     if request.method == 'POST':
-        form = list_form(request.POST)
+        form = ListForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect('index.html')
+            created_list = form.save()
+            return HttpResponseRedirect('')
     else:
-        form = list_form()
+        form = ListForm()
 
-    return render(request, 'list_form.html', {'form' : form})
+    return render(request, 'new_list.html', {'form' : form})
+
+def update_list(request, id):
+    instance = get_object_or_404(List, id=id)
+    form = ListForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        form.save()
+        return redirect('')
+    return render(request, 'update_list.html', {'form': form})
+
+def delete_list(request, id):
+    list = List.objects.get(id=id)
+    if request.method == 'POST':
+        list.delete()
+    return redirect('')
+
+class ListForm(ModelForm):
+    class Meta:
+        model = List
+        fields = ['name']
+
