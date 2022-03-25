@@ -1,15 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="list-group w-50 mt-5 mx-auto">
+{% for task in tasks %}
+
+    <div class="list-group-item list-group-item-action">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ task }}</h5>
+        <small>
+            {% if task.due_date %}
+            Due {{ task.due_date }}
+            {% else %}
+            No Due Date Set
+            {% endif %}
+        </small>
+      </div>
+      <p class="mb-2">{{ task.description }}</p>
+      <a class="px-2" href="/markdone/{{ task.id }}"><i class="fa-solid fa-check fa-xl"></i></a>
+      <a class="px-2" href="/edit/{{ task.id }}"><i class="fa-solid fa-pen-to-square fa-xl"></i></a>
+      <a class="px-2" href="/delete/{{ task.id }}" onclick="return confirm('Are you sure you want to delete this task?')"><i class="fa-solid fa-trash-can fa-xl"></i></a>
+      
+      </div>
+{% endfor %}
+</div>
 
 {% for task in tasks %}
-<li>
-    {{ task }}
-    <a href="/edit/{{ task.id }}">Edit</a>
-    <a href="/delete/{{ task.id }}" onclick="return confirm('Are you sure you want to delete this task?')">Delete</a>
-    <a href="/markdone/{{ task.id }}">Mark Done</a>
-</li>
-
 
 {% endfor %}
 

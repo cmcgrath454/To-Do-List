@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Task
-from django.forms import ModelForm
+from django.forms import ModelForm, DateInput
 from django.shortcuts import get_object_or_404, redirect
 
 # Create your views here.
@@ -47,3 +47,6 @@ class TaskForm(ModelForm):
     class Meta:
         model = Task
         fields = ['name', 'description', 'due_date']
+        widgets = {
+            'due_date': DateInput(attrs={'type':'date'})
+        }

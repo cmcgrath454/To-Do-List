@@ -2,12 +2,23 @@
 
 {% block content %}
 
-{% for task in tasks %}
-<li>
-    {{ task }}
-</li>
-
-
-{% endfor %}
+<div class="list-group w-50 mt-5 mx-auto">
+    {% for task in tasks %}
+    
+        <div class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ task }}</h5>
+            <small>
+                {% if task.due_date %}
+                Due {{ task.due_date }}
+                {% else %}
+                No Due Date Set
+                {% endif %} 
+            </small>
+          </div>
+          <p class="mb-2">{{ task.description }}</p>          
+          </div>
+    {% endfor %}
+    </div>
 
 {% endblock %}

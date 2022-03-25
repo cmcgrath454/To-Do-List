@@ -5,7 +5,7 @@ from django.db import models
 class Task(models.Model):
     name = models.CharField(max_length=25, unique=True)
     is_done = models.BooleanField(default=False)
-    description = models.CharField(max_length=100, null=True)
+    description = models.CharField(max_length=200, default="No Description")
     due_date = models.DateField(null=True)
 
     def __str__(self):
@@ -13,3 +13,5 @@ class Task(models.Model):
 
     def get_url(self):
         return 'task/' + str(self.id)
+
+
